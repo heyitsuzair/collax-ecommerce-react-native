@@ -4,7 +4,7 @@ import {
   CartScreen,
   ContactScreen,
   HomeScreen,
-} from '../../screens/app';
+} from '../screens/app';
 import React from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import tw from 'twrnc';
@@ -16,7 +16,8 @@ const AppNavigator = () => {
     <Tab.Navigator
       initialRouteName="Home"
       barStyle={tw`border-t border-gray-300`}
-      activeColor="#6366fa">
+      activeColor="#6366fa"
+      inactiveColor="gray">
       <Tab.Screen
         name="Home"
         component={HomeScreen}

@@ -1,10 +1,11 @@
-import {View, Text} from 'react-native';
+import {View} from 'react-native';
 import React from 'react';
+import {BreadcrumbScreen} from '../../components/commons';
 
 const AboutScreen = () => {
   return (
     <View>
-      <Text>AboutScreen</Text>
+      <BreadcrumbScreen text="Muhammad Uzair" />
     </View>
   );
 };

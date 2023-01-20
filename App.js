@@ -2,8 +2,8 @@ import React, {useEffect} from 'react';
 import {SafeAreaView, StatusBar} from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import {NavigationContainer} from '@react-navigation/native';
-import {AppNavigator} from './src/config/navigation';
 import tw from 'twrnc';
+import {AppNavigator} from './src/navigation';
 
 function App() {
   useEffect(() => {
