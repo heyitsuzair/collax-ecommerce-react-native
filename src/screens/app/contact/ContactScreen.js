@@ -1,6 +1,6 @@
 import {View} from 'react-native';
 import React from 'react';
-import {BreadcrumbScreen} from '../../components/commons';
+import {BreadcrumbScreen} from '../../../components/commons';
 
 const ContactScreen = () => {
   return (
