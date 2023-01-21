@@ -13,7 +13,7 @@ const Tab = createMaterialBottomTabNavigator();
 const AppNavigator = () => {
   return (
     <Tab.Navigator
-      barStyle={tw`border-t border-gray-300`}
+      barStyle={tw`border-t border-gray-300 bg-white`}
       activeColor="#6366fa"
       inactiveColor="gray">
       <Tab.Screen

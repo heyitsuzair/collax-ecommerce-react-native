@@ -7,7 +7,9 @@ import Intro from './Intro';
 
 const AboutScreen = () => {
   return (
-    <ScrollView showsVerticalScrollIndicator={false} style={tw`flex-1`}>
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      style={tw`flex-1 bg-white`}>
       <BreadcrumbScreen text="Muhammad Uzair" />
       <View style={tw`mt-12`}>
         <Me />
