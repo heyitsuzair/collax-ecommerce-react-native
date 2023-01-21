@@ -1,7 +1,7 @@
 import {View} from 'react-native';
 import React from 'react';
 import tw from 'twrnc';
-import {Text} from '../../../components/commons';
+import {InputPlain, Text} from '../../../components/commons';
 
 const Form = () => {
   return (
@@ -11,6 +11,9 @@ const Form = () => {
         classes="text-4xl text-black"
         isDmSans="Bold"
       />
+      <View>
+        <InputPlain />
+      </View>
     </View>
   );
 };
