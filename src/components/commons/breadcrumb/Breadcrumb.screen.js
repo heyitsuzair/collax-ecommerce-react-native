@@ -8,7 +8,7 @@ const image = require('../../../img/ab-1.1.jpg');
 const BreadcrumbScreen = ({text}) => {
   return (
     <View>
-      <Image source={image} resizeMode="cover" style={styles.bgImage} />
+      <Image source={image} resizeMode="cover" style={tw`w-full h-[12.5rem]`} />
       <View style={tw`absolute top-10 left-6 gap-7`}>
         <Text text={text} classes="text-black text-3xl" isDmSans="Bold" />
         <ButtonPlain
@@ -23,12 +23,5 @@ const BreadcrumbScreen = ({text}) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  bgImage: {
-    width: '100%',
-    height: '70%',
-  },
-});
 
 export default BreadcrumbScreen;

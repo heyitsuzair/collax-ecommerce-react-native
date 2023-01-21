@@ -1,12 +1,21 @@
-import {View} from 'react-native';
+import {ScrollView, View} from 'react-native';
 import React from 'react';
 import {BreadcrumbScreen} from '../../../components/commons';
+import tw from 'twrnc';
+import Me from './Me';
+import Intro from './Intro';
 
 const AboutScreen = () => {
   return (
-    <View>
+    <ScrollView showsVerticalScrollIndicator={false} style={tw`flex-1`}>
       <BreadcrumbScreen text="Muhammad Uzair" />
-    </View>
+      <View style={tw`mt-12`}>
+        <Me />
+        <View style={tw`w-5/6 my-6 mx-auto`}>
+          <Intro />
+        </View>
+      </View>
+    </ScrollView>
   );
 };
 

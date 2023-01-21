@@ -13,4 +13,10 @@ import ButtonPlain from './buttons/Button.plain';
  */
 import Text from './text/Text';
 
-export {BreadcrumbScreen, ButtonPlain, Text};
+/**
+ * Icons
+ */
+import IconPlain from './icons/Icon.plain';
+import IconRounded from './icons/Icon.rounded';
+
+export {BreadcrumbScreen, ButtonPlain, Text, IconPlain, IconRounded};
