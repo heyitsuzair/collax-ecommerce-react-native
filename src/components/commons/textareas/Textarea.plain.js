@@ -3,7 +3,7 @@ import React from 'react';
 import tw from 'twrnc';
 import TextError from '../text/Text.error';
 
-const InputPlain = ({
+const TextareaPlain = ({
   onChange,
   onBlur,
   keyboardType,
@@ -23,6 +23,9 @@ const InputPlain = ({
         onChangeText={onChange}
         value={value}
         onBlur={onBlur}
+        textAlignVertical="top"
+        multiline
+        numberOfLines={10}
       />
       {error && (
         <View style={tw`mt-1`}>
@@ -33,4 +36,4 @@ const InputPlain = ({
   );
 };
 
-export default InputPlain;
+export default TextareaPlain;
