@@ -5,4 +5,5 @@ export const Routes = {
   aboutScreen: 'AboutScreen',
   contactScreen: 'ContactScreen',
   productScreen: 'ProductScreen',
+  checkoutScreen: 'CheckoutScreen',
 };

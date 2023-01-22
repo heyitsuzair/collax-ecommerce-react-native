@@ -15,12 +15,13 @@ const ButtonPlain = ({
   iconSize,
   onPress,
   isLoading,
+  isWidthFull,
 }) => {
   let size = 20;
   let textColor = 'text-white';
   let iconColor = 'white';
   let btnColor = 'bg-indigo-500';
-  let btnSize = 'w-48 h-12';
+  let btnSize = `w-${isWidthFull ? 'full' : '48'} h-12`;
 
   /**
    * Check Whether Icon Size Is Provided Or Not
@@ -50,9 +51,9 @@ const ButtonPlain = ({
    * Check Whether Button Size Is Provided Or Not
    */
   if (sizeBtn === 'small') {
-    btnSize = 'w-32 h-8';
+    btnSize = `w-${isWidthFull ? 'full' : '32'} h-8`;
   } else if (sizeBtn === 'large') {
-    btnSize = 'w-60 h-16';
+    btnSize = `w-${isWidthFull ? 'full' : '60'} h-16`;
   }
 
   return (

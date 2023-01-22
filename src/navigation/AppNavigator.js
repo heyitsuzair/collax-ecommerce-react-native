@@ -7,6 +7,7 @@ import {Routes} from '../config';
 import {CartScreen} from '../screens/app/cart';
 import {AboutScreen} from '../screens/app/about';
 import {ContactScreen} from '../screens/app/contact';
+import CartNavigator from './CartNavigator';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -25,8 +26,8 @@ const AppNavigator = () => {
         }}
       />
       <Tab.Screen
-        name="Cart"
-        component={CartScreen}
+        name={Routes.cartScreen}
+        component={CartNavigator}
         options={{
           title: 'Cart',
           tabBarIcon: ({color}) => (
