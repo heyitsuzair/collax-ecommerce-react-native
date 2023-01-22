@@ -5,21 +5,27 @@ import tw from 'twrnc';
 import {useNavigation} from '@react-navigation/native';
 import {Routes} from '../../../config';
 
-const Proceed = () => {
+const BottomBar = () => {
   /**
    * Navigation
    */
   const navigation = useNavigation();
 
   return (
-    <View style={tw`bg-white p-5 border-t border-gray-300`}>
+    <View
+      style={tw`bg-white flex-row gap-3 py-5 px-2 mx-auto border-t border-gray-300`}>
+      <ButtonPlain
+        text="Clear Cart"
+        colorBtn="bg-yellow-300"
+        colorText="text-black"
+        onPress={() => alert('Clear Cart')}
+      />
       <ButtonPlain
         text="Proceed To Checkout"
-        isWidthFull
         onPress={() => navigation.navigate(Routes.checkoutScreen)}
       />
     </View>
   );
 };
 
-export default Proceed;
+export default BottomBar;

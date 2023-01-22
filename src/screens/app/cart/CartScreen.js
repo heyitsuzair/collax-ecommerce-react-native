@@ -2,7 +2,7 @@ import {ScrollView, View} from 'react-native';
 import React from 'react';
 import {BreadcrumbScreen} from '../../../components/commons';
 import tw from 'twrnc';
-import Proceed from './Proceed';
+import BottomBar from './BottomBar';
 import CartItem from './CartItem';
 
 const CartScreen = () => {
@@ -20,7 +20,7 @@ const CartScreen = () => {
           <CartItem />
         </View>
       </ScrollView>
-      <Proceed />
+      <BottomBar />
     </>
   );
 };
