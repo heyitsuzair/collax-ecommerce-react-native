@@ -5,7 +5,7 @@ import PersonalDetails from './PersonalDetails';
 import BillingDetails from './BillingDetails';
 import PaymentMethod from './PaymentMethod';
 import OrderInfo from './OrderInfo';
-import {ErrorMessage, IconPlain, Text} from '../../../components/commons';
+import {Text} from '../../../components/commons';
 const StepperUI = ({
   handleSubmit,
   handleBlur,

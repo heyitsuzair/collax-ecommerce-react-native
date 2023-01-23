@@ -13,6 +13,7 @@
     "debug": "cd android && gradlew assembleDebug -x bundleReleaseJsAndAssets"
   },
   "dependencies": {
+    "@react-native-picker/picker": "^2.4.8",
     "@react-navigation/material-bottom-tabs": "^6.2.11",
     "@react-navigation/native": "^6.1.2",
     "@react-navigation/native-stack": "^6.9.8",

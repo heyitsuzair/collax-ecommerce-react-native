@@ -41,6 +41,11 @@ import SpinnerSmall from './spinners/Spinner.small';
 import SuccessMessage from './flash/SuccessMessage';
 import ErrorMessage from './flash/ErrorMessage';
 
+/**
+ * Selects
+ */
+import PaperSelectInput from './selects/Select.plain';
+
 export {
   BreadcrumbScreen,
   ButtonPlain,
@@ -53,4 +58,5 @@ export {
   SpinnerSmall,
   SuccessMessage,
   ErrorMessage,
+  PaperSelectInput,
 };
