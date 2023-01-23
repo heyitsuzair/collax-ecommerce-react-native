@@ -36,10 +36,21 @@ const StepperUI = ({
     errors,
   };
 
+  /**
+   * Payment Method Component Props
+   */
+  const PaymentMethodProps = {
+    handleBlur,
+    handleChange,
+    values,
+    touched,
+    errors,
+  };
+
   const content = [
     <PersonalDetails {...PersonalDetailsProps} />,
     <BillingDetails {...BillingDetailsProps} />,
-    <PaymentMethod />,
+    <PaymentMethod {...PaymentMethodProps} />,
     <OrderInfo />,
   ];
 

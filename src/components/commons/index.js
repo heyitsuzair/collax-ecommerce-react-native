@@ -46,6 +46,12 @@ import ErrorMessage from './flash/ErrorMessage';
  */
 import PaperSelectInput from './selects/Select.plain';
 
+/**
+ * Radios
+ */
+import RadioPlain from './radios/Radio.plain';
+import RadioGroup from './radios/Radio.group';
+
 export {
   BreadcrumbScreen,
   ButtonPlain,
@@ -59,4 +65,6 @@ export {
   SuccessMessage,
   ErrorMessage,
   PaperSelectInput,
+  RadioPlain,
+  RadioGroup,
 };
