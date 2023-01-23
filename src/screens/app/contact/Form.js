@@ -3,6 +3,7 @@ import React, {useState} from 'react';
 import tw from 'twrnc';
 import {
   ButtonPlain,
+  ErrorMessage,
   InputPlain,
   SpinnerSmall,
   SuccessMessage,
@@ -11,6 +12,7 @@ import {
 } from '../../../components/commons';
 import {ContactFormSchema} from '../../../yupSchemas';
 import {useFormik} from 'formik';
+import {sendMessage} from '../../../functions/contact';
 
 const Form = () => {
   /**
@@ -38,20 +40,17 @@ const Form = () => {
      */
     setIsLoading(true);
 
-    // const data = { data: values };
+    const data = {data: values};
 
-    // const isMessageSent = await sendMessage(data);
-    // if (isMessageSent.error) {
-    //   ErrorMessage(isMessageSent.error.message);
-    //   setIsLoading(false);
-    //   return;
-    // }
-    // SuccessMessage("We Will Contact You Soon!");
-    setTimeout(() => {
-      SuccessMessage('We Will Contact You Soon');
+    const isMessageSent = await sendMessage(data);
+    if (isMessageSent.error) {
+      ErrorMessage(isMessageSent.error.message);
       setIsLoading(false);
-      actions.resetForm();
-    }, 2000);
+      return;
+    }
+    SuccessMessage('We Will Contact You Soon!');
+    setIsLoading(false);
+    actions.resetForm();
   };
 
   /**
