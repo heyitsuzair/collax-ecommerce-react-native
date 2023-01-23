@@ -1,5 +1,5 @@
-import {ScrollView} from 'react-native';
-import React, {useState} from 'react';
+import {ScrollView, Keyboard} from 'react-native';
+import React, {useState, useEffect} from 'react';
 import StepperUI from './StepperUI';
 import tw from 'twrnc';
 import {useFormik} from 'formik';
@@ -8,23 +8,24 @@ import PlaceOrder from './PlaceOrder';
 
 const CheckoutScreen = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
 
   /**
    * @var initialValues Form Initial Values
    */
 
   const initialValues = {
-    country: '',
-    first_name: '',
-    last_name: '',
+    country: 'Pakistan',
+    first_name: 'uzair',
+    last_name: 'mu',
     company: '',
-    street_address: '',
-    apartment_no: '',
-    city: '',
-    province: '',
-    zip: '',
-    email: '',
-    phone_no: '',
+    street_address: '14 lahore',
+    apartment_no: '14',
+    city: 'lah',
+    province: 'pun',
+    zip: '500',
+    email: 'uzair@gmail.com',
+    phone_no: '023',
     method: 'COD',
     card_no: '',
     card_cvc: '',
@@ -37,7 +38,6 @@ const CheckoutScreen = () => {
    */
 
   const onSubmit = async (values, actions) => {
-    alert('hello');
     /**
      * Start Loading
      */
@@ -60,10 +60,8 @@ const CheckoutScreen = () => {
     //   SuccessMessage(isOrderAdded.msg);
 
     // }
+    actions.resetForm();
 
-    /**
-     * Stop Loading
-     */
     setIsLoading(false);
   };
 
@@ -86,12 +84,43 @@ const CheckoutScreen = () => {
     handleSubmit,
   };
 
+  /**
+   * @function checkIfKeyboardVisible
+   *
+   * Checks if the keyboard is open or not
+   *
+   * @true setIsKeyboardVisible to true
+   *
+   * @false setIsKeyboardVisible to false
+   */
+
+  const checkIfKeyboardVisible = () => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      'keyboardDidShow',
+      () => {
+        setIsKeyboardVisible(true); // or some other action
+      },
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      'keyboardDidHide',
+      () => {
+        setIsKeyboardVisible(false); // or some other action
+      },
+    );
+  };
+
+  useEffect(() => {
+    checkIfKeyboardVisible();
+  }, []);
+
   return (
     <>
       <ScrollView style={tw`bg-white h-full`}>
         <StepperUI {...StepperUIProps} />
       </ScrollView>
-      <PlaceOrder isLoading={isLoading} onPress={handleSubmit} />
+      {!isKeyboardVisible && (
+        <PlaceOrder isLoading={isLoading} onPress={handleSubmit} />
+      )}
     </>
   );
 };

@@ -6,14 +6,7 @@ import BillingDetails from './BillingDetails';
 import PaymentMethod from './PaymentMethod';
 import OrderInfo from './OrderInfo';
 import {Text} from '../../../components/commons';
-const StepperUI = ({
-  handleSubmit,
-  handleBlur,
-  handleChange,
-  errors,
-  touched,
-  values,
-}) => {
+const StepperUI = ({handleBlur, handleChange, errors, touched, values}) => {
   /**
    * Billing Details Components Props
    */
@@ -59,7 +52,7 @@ const StepperUI = ({
       <View>
         <Text
           text="Personal Details"
-          classes="text-black text-2xl mb-4"
+          classes="text-black text-2xl mb-4 border-b-2 border-gray-200 pb-2 mb-6"
           isDmSans="Bold"
         />
         {content[0]}
@@ -67,7 +60,7 @@ const StepperUI = ({
       <View>
         <Text
           text="Billing Details"
-          classes="text-black text-2xl mb-4"
+          classes="text-black text-2xl mb-4 border-b-2 border-gray-200 pb-2 mb-6"
           isDmSans="Bold"
         />
         {content[1]}
@@ -75,7 +68,7 @@ const StepperUI = ({
       <View>
         <Text
           text="Payment Methods"
-          classes="text-black text-2xl mb-4"
+          classes="text-black text-2xl mb-4 border-b-2 border-gray-200 pb-2 mb-6"
           isDmSans="Bold"
         />
         {content[2]}
@@ -83,7 +76,7 @@ const StepperUI = ({
       <View>
         <Text
           text="Your Order"
-          classes="text-black text-2xl mb-4"
+          classes="text-black text-2xl mb-4 border-b-2 border-gray-200 pb-2 mb-6"
           isDmSans="Bold"
         />
         {content[3]}
