@@ -18,7 +18,7 @@ const CartItem = () => {
 
   return (
     <View
-      style={tw`border flex-row items-center gap-6 border-gray-300 rounded-lg p-4`}>
+      style={tw`border flex-row items-center gap-6 border-gray-300 rounded-md p-4`}>
       <Image source={PRODUCT_IMAGE} resizeMode="cover" style={tw`w-32 h-32`} />
       <View style={tw`gap-6 justify-between`}>
         <View>
