@@ -4,7 +4,7 @@ import tw from 'twrnc';
 import {Image} from 'react-native';
 
 /**
- * My Picture
+ * Contact Picture
  */
 const CONTACT_IMG = require('../../../img/contact-1.jpg');
 

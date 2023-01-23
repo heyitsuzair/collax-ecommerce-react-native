@@ -52,6 +52,17 @@ import PaperSelectInput from './selects/Select.plain';
 import RadioPlain from './radios/Radio.plain';
 import RadioGroup from './radios/Radio.group';
 
+/**
+ * Cards
+ */
+import CardProduct from './cards/Card.product';
+
+/**
+ * Badges
+ */
+import BadgePlain from './badges/Badge.plain';
+import BadgeGroup from './badges/Badge.group';
+
 export {
   BreadcrumbScreen,
   ButtonPlain,
@@ -67,4 +78,7 @@ export {
   PaperSelectInput,
   RadioPlain,
   RadioGroup,
+  CardProduct,
+  BadgePlain,
+  BadgeGroup,
 };
