@@ -8,11 +8,9 @@ import Form from './Form';
 
 const ContactScreen = () => {
   return (
-    <ScrollView
-      showsVerticalScrollIndicator={false}
-      style={tw`flex-1 bg-white`}>
+    <ScrollView showsVerticalScrollIndicator={false} style={tw`bg-white`}>
       <BreadcrumbScreen text="Contact" />
-      <View style={tw`w-[86%] my-16 mx-auto`}>
+      <View style={tw`my-16 mx-auto w-[86%] flex-1`}>
         <Pic />
         <Details />
         <Form />

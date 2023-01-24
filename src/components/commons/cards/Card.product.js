@@ -1,4 +1,4 @@
-import {Pressable, Image, View} from 'react-native';
+import {Pressable, Image, View, Dimensions} from 'react-native';
 import React from 'react';
 import tw from 'twrnc';
 import {useNavigation} from '@react-navigation/native';
@@ -27,18 +27,23 @@ const CardProduct = ({product_image, slug, product_title, price}) => {
    */
   const PRODUCT_IMAGE = product_image.data.attributes.url;
 
+  /**
+   * Image Height
+   */
+  const WIDTH = Dimensions.get('screen').width / 9.3;
+
   return (
     <Pressable onPress={() => onCardPress()} style={tw`m-1`}>
       <View>
         <Image
           source={{uri: PRODUCT_IMAGE}}
           resizeMode="cover"
-          style={tw`w-44.5 h-52`}
+          style={tw`w-[${WIDTH}]px h-52`}
         />
         <Text
           text={product_title}
           isDmSans="Medium"
-          classes="text-black text-center my-4 min-h-[1.7rem] w-44.5"
+          classes="text-black text-center my-4 min-h-[1.7rem]"
         />
         <Text
           text={`$${price}`}

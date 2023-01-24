@@ -125,15 +125,18 @@ const Form = () => {
           error={errors.message && touched.message}
           errorText={errors.message}
         />
-        <ButtonPlain
-          text={isConnected ? 'Send Message' : 'Network Unavailable'}
-          onPress={!isLoading && handleSubmit}
-          colorBtn="bg-yellow-300"
-          isDisabled={!isConnected}
-          colorText="text-black"
-          isLoading={isLoading}
-          colorLoading="black"
-        />
+        <View style={tw`w-[${isConnected ? '48%' : '55%'}]`}>
+          <ButtonPlain
+            text={isConnected ? 'Send Message' : 'Network Unavailable'}
+            onPress={!isLoading && handleSubmit}
+            colorBtn="bg-yellow-300"
+            isWidthFull
+            isDisabled={!isConnected}
+            colorText="text-black"
+            isLoading={isLoading}
+            colorLoading="black"
+          />
+        </View>
       </View>
     </View>
   );

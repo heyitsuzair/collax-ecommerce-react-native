@@ -57,7 +57,7 @@ const ProductScreen = ({route, navigation}) => {
     setIsLoading(true);
     const product = await getProduct(slug);
     setProduct(product.data[0]);
-    isAlreadyInCart();
+    isAlreadyInCart(product.data[0]);
     setIsLoading(false);
   };
 
@@ -130,7 +130,7 @@ const ProductScreen = ({route, navigation}) => {
   /**
    * @function isAlreadyInCart Check if the product is already in cart
    */
-  const isAlreadyInCart = () => {
+  const isAlreadyInCart = product => {
     /**
      * Find By ID
      */
@@ -200,7 +200,7 @@ const ProductScreen = ({route, navigation}) => {
     /**
      * Check if product is already in cart if user is connected to internet
      */
-    isConnected && isAlreadyInCart();
+    isConnected && isAlreadyInCart(product);
     //eslint-disable-next-line
   }, [cart]);
 
@@ -238,7 +238,7 @@ const ProductScreen = ({route, navigation}) => {
           <>
             <Text
               text="Seems Like You Are Currently Offline. Please Check Your Network Connection!"
-              classes="text-center"
+              classes="text-center px-5"
             />
           </>
         )}

@@ -13,7 +13,7 @@ const ListFooterComponent = ({meta}) => {
     <>
       <View style={tw`flex flex-row justify-center mt-4 mb-14 items-center`}>
         <View
-          style={tw`mx-2 -ml-2 border-4 border-indigo-400 p-2 rounded-full`}>
+          style={tw`mx-2 -ml-2 border-4 border-indigo-400 items-center justify-center w-12 h-12 rounded-full`}>
           <IconPlain icon="check" color="#6366fa" size={20} />
         </View>
         <Text

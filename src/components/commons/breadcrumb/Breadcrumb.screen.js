@@ -1,4 +1,4 @@
-import {View, Image, StyleSheet, Linking} from 'react-native';
+import {View, Image, Linking} from 'react-native';
 import React from 'react';
 import tw from 'twrnc';
 import {ButtonPlain, Text} from '../index';
@@ -9,7 +9,7 @@ const BreadcrumbScreen = ({text}) => {
   return (
     <View>
       <Image source={image} resizeMode="cover" style={tw`w-full h-[12.5rem]`} />
-      <View style={tw`absolute top-10 left-6 gap-7`}>
+      <View style={tw`absolute w-full top-10 left-6 gap-7`}>
         <Text text={text} classes="text-black text-3xl" isDmSans="Bold" />
         <ButtonPlain
           text="Let's Work Together"

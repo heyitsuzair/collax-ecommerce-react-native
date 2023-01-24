@@ -92,7 +92,6 @@ const HomeScreen = () => {
             }
             //Setting the number of column
             numColumns={2}
-            key={'_'}
             keyExtractor={item => item.id}
           />
         )}
@@ -107,7 +106,7 @@ const HomeScreen = () => {
           <>
             <Text
               text="Seems Like You Are Currently Offline. Please Check Your Network Connection!"
-              classes="text-center"
+              classes="text-center px-5"
             />
           </>
         )}

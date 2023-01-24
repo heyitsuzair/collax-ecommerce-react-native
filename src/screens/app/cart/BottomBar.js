@@ -42,7 +42,7 @@ const BottomBar = () => {
         onPress={() => onClearCart()}
       />
       <ButtonPlain
-        text="Proceed To Checkout"
+        text="Checkout"
         isDisabled={cart.cartItems.length < 1}
         onPress={() => navigation.navigate(Routes.checkoutScreen)}
       />

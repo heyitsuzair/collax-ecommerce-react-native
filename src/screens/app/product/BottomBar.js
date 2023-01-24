@@ -6,7 +6,7 @@ import tw from 'twrnc';
 const BottomBar = ({available_qty, onAddToCart, onBuyNow, isInCart}) => {
   return (
     <View
-      style={tw`bg-white flex-row gap-3 py-5 px-2 mx-auto border-t border-gray-300`}>
+      style={tw`bg-white flex-row gap-3 py-5 px-2 mx-auto border-t border-gray-300 justify-center`}>
       <ButtonPlain
         text={isInCart ? 'Save' : 'Add To Cart'}
         colorBtn="bg-yellow-300"

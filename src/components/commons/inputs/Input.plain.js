@@ -17,7 +17,7 @@ const InputPlain = ({
     <View>
       <TextInput
         secureTextEntry={isSecureText && isSecureText}
-        style={tw`border-2 border-gray-200 text-lg p-3 rounded-xl w-full`}
+        style={tw`border-2 border-gray-200 text-lg px-3 py-2 rounded-xl w-full`}
         placeholder={placeholder}
         keyboardType={keyboardType}
         onChangeText={onChange}

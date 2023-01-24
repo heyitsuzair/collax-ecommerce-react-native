@@ -1,14 +1,14 @@
 import {View} from 'react-native';
 import React from 'react';
-import Text from './Text';
+import PlainText from './Text';
 
 const TextError = ({error}) => {
   return (
     <View>
-      <Text
+      <PlainText
         adjustsFontSizeToFit
         text={error}
-        classes="text-red-400"
+        classes="text-red-400 text-sm"
         isDmSans="Medium"
       />
     </View>
