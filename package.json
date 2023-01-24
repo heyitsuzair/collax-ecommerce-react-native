@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@react-native-community/async-storage": "^1.12.1",
+    "@react-native-community/netinfo": "^9.3.7",
     "@react-native-picker/picker": "^2.4.8",
     "@react-navigation/material-bottom-tabs": "^6.2.11",
     "@react-navigation/native": "^6.1.2",

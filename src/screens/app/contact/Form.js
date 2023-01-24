@@ -1,5 +1,5 @@
 import {View} from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import tw from 'twrnc';
 import {
   ButtonPlain,
@@ -13,12 +13,18 @@ import {
 import {ContactFormSchema} from '../../../yupSchemas';
 import {useFormik} from 'formik';
 import {sendMessage} from '../../../functions/contact';
+import NetInfo from '@react-native-community/netinfo';
 
 const Form = () => {
   /**
    * State For Loading On Form Submission
    */
   const [isLoading, setIsLoading] = useState(false);
+
+  /**
+   * State To Check Internet Connection
+   */
+  const [isConnected, setIsConnected] = useState(false);
 
   /**
    * @var initialValues Form Initial Values
@@ -62,6 +68,30 @@ const Form = () => {
       initialValues,
       onSubmit,
     });
+
+  /**
+   * @function getNetInfo
+   *
+   * Checks For Network Connectivity
+   *
+   * @true set "isConnected" state to true
+   *
+   * @false set "isConnected" state to false
+   */
+  const getNetInfo = () => {
+    NetInfo.addEventListener(state => {
+      if (state.isConnected) {
+        setIsConnected(true);
+      } else {
+        setIsConnected(false);
+      }
+    });
+  };
+
+  useEffect(() => {
+    getNetInfo();
+  }, []);
+
   return (
     <View style={tw`mt-12`}>
       <Text
@@ -96,9 +126,10 @@ const Form = () => {
           errorText={errors.message}
         />
         <ButtonPlain
-          text="Send Message"
+          text={isConnected ? 'Send Message' : 'Network Unavailable'}
           onPress={!isLoading && handleSubmit}
           colorBtn="bg-yellow-300"
+          isDisabled={!isConnected}
           colorText="text-black"
           isLoading={isLoading}
           colorLoading="black"

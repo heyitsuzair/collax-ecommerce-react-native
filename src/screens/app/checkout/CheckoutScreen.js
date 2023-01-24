@@ -5,10 +5,15 @@ import tw from 'twrnc';
 import {useFormik} from 'formik';
 import {CheckoutFormSchema} from '../../../yupSchemas';
 import PlaceOrder from './PlaceOrder';
+import NetInfo from '@react-native-community/netinfo';
 
 const CheckoutScreen = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
+  /**
+   * State To Check Internet Connection
+   */
+  const [isConnected, setIsConnected] = useState(false);
 
   /**
    * @var initialValues Form Initial Values
@@ -109,9 +114,38 @@ const CheckoutScreen = () => {
     );
   };
 
+  /**
+   * @function getNetInfo
+   *
+   * Checks For Network Connectivity
+   *
+   * @true set "isConnected" state to true
+   *
+   * @false set "isConnected" state to false
+   */
+  const getNetInfo = () => {
+    NetInfo.addEventListener(state => {
+      if (state.isConnected) {
+        setIsConnected(true);
+      } else {
+        setIsConnected(false);
+      }
+    });
+  };
+
   useEffect(() => {
+    getNetInfo();
     checkIfKeyboardVisible();
   }, []);
+
+  /**
+   * Props For PlaceOrder Component
+   */
+  const placeOrderProps = {
+    isLoading,
+    onPress: handleSubmit,
+    isConnected,
+  };
 
   return (
     <>
@@ -120,9 +154,7 @@ const CheckoutScreen = () => {
         showsVerticalScrollIndicator={false}>
         <StepperUI {...StepperUIProps} />
       </ScrollView>
-      {!isKeyboardVisible && (
-        <PlaceOrder isLoading={isLoading} onPress={handleSubmit} />
-      )}
+      {!isKeyboardVisible && <PlaceOrder {...placeOrderProps} />}
     </>
   );
 };

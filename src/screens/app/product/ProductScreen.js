@@ -5,15 +5,17 @@ import BottomBar from './BottomBar';
 import Details from './Details';
 import Variants from './Variants';
 import {getProduct} from '../../../functions/products';
-import {SpinnerLarge} from '../../../components/commons';
+import {SpinnerLarge, Text} from '../../../components/commons';
 import {useDispatch, useSelector} from 'react-redux';
 import {Routes} from '../../../config';
 import {addToCart, buyNow, clearCart} from '../../../redux/slices/cart';
+import NetInfo from '@react-native-community/netinfo';
 
 const ProductScreen = ({route, navigation}) => {
   const [product, setProduct] = useState([]);
 
   const [isLoading, setIsLoading] = useState(true);
+  const [isConnected, setIsConnected] = useState(false);
 
   /**
    * Incoming Params
@@ -158,11 +160,6 @@ const ProductScreen = ({route, navigation}) => {
     }
   };
 
-  useEffect(() => {
-    fetchProduct();
-    //eslint-disable-next-line
-  }, []);
-
   /**
    * Bottom Bar Props
    */
@@ -172,30 +169,74 @@ const ProductScreen = ({route, navigation}) => {
     onBuyNow,
   };
 
-  return (
-    <View style={tw`flex-1 bg-white justify-center`}>
-      {isLoading ? (
-        <SpinnerLarge />
-      ) : (
-        <>
-          <ScrollView style={tw`bg-white`}>
-            <Image
-              source={{
-                uri: product.attributes.product_image.data.attributes.url,
-              }}
-              resizeMode="cover"
-              style={tw`w-full h-${HEIGHT}px`}
+  /**
+   * @function getNetInfo
+   *
+   * Checks For Network Connectivity
+   *
+   * @true call "fetchProduct()" function and set "isConnected" state to true
+   *
+   * @false set "isConnected" state to false and set "isLoading" state to false
+   */
+  const getNetInfo = () => {
+    setIsLoading(true);
+    NetInfo.addEventListener(state => {
+      if (state.isConnected) {
+        setIsConnected(true);
+        fetchProduct();
+      } else {
+        setIsConnected(false);
+        setIsLoading(false);
+      }
+    });
+  };
+
+  useEffect(() => {
+    getNetInfo();
+    //eslint-disable-next-line
+  }, []);
+
+  if (isConnected) {
+    return (
+      <View style={tw`flex-1 bg-white justify-center`}>
+        {isLoading ? (
+          <SpinnerLarge />
+        ) : (
+          <>
+            <ScrollView style={tw`bg-white`}>
+              <Image
+                source={{
+                  uri: product.attributes.product_image.data.attributes.url,
+                }}
+                resizeMode="cover"
+                style={tw`w-full h-${HEIGHT}px`}
+              />
+              <View style={tw`m-4 gap-6`}>
+                <Details {...product.attributes} />
+                <Variants {...variantProps} />
+              </View>
+            </ScrollView>
+            <BottomBar {...product.attributes} {...BottomBarProps} />
+          </>
+        )}
+      </View>
+    );
+  } else {
+    return (
+      <View style={tw`bg-white flex-1 gap-4 items-center justify-center`}>
+        {isLoading ? (
+          <SpinnerLarge />
+        ) : (
+          <>
+            <Text
+              text="Seems Like You Are Currently Offline. Please Check Your Network Connection!"
+              classes="text-center"
             />
-            <View style={tw`m-4 gap-6`}>
-              <Details {...product.attributes} />
-              <Variants {...variantProps} />
-            </View>
-          </ScrollView>
-          <BottomBar {...product.attributes} {...BottomBarProps} />
-        </>
-      )}
-    </View>
-  );
+          </>
+        )}
+      </View>
+    );
+  }
 };
 
 export default ProductScreen;
