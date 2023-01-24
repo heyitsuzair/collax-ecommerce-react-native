@@ -5,7 +5,7 @@ import {useNavigation} from '@react-navigation/native';
 import {Routes} from '../../../config';
 import {Text} from '../index';
 
-const CardProduct = () => {
+const CardProduct = ({product_image, slug, product_title, price}) => {
   const navigation = useNavigation();
 
   /**
@@ -15,29 +15,30 @@ const CardProduct = () => {
    */
   const onCardPress = () => {
     navigation.navigate(Routes.productScreen, {
-      slug: 'slug',
+      slug,
     });
   };
 
   /**
    * Product Picture
    */
-  const PRODUCT_IMAGE = require('../../../img/contact-1.jpg');
+  const PRODUCT_IMAGE = product_image.data.attributes.url;
+
   return (
     <Pressable onPress={() => onCardPress()} style={tw`m-1`}>
       <View>
         <Image
-          source={PRODUCT_IMAGE}
+          source={{uri: PRODUCT_IMAGE}}
           resizeMode="cover"
           style={tw`w-44.5 h-52`}
         />
         <Text
-          text="iPhone-12,lorememffnfnfnfn"
+          text={product_title}
           isDmSans="Medium"
           classes="text-black text-center my-4 min-h-[1.7rem] w-44.5"
         />
         <Text
-          text="$40"
+          text={`$${price}`}
           isDmSans="Regular"
           classes="text-gray-400 text-center my-4"
         />

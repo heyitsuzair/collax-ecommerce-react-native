@@ -9,7 +9,9 @@ const PlainText = ({isDmSans, text, classes}) => {
     },
   });
   return (
-    <Text style={[tw`text-lg ${classes}`, isDmSans && styles.text]}>
+    <Text
+      adjustsFontSizeToFit
+      style={[tw`text-lg ${classes}`, isDmSans && styles.text]}>
       {text}
     </Text>
   );

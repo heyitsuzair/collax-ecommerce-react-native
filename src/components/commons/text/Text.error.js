@@ -5,7 +5,12 @@ import Text from './Text';
 const TextError = ({error}) => {
   return (
     <View>
-      <Text text={error} classes="text-red-400" isDmSans="Medium" />
+      <Text
+        adjustsFontSizeToFit
+        text={error}
+        classes="text-red-400"
+        isDmSans="Medium"
+      />
     </View>
   );
 };

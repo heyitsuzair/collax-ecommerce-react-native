@@ -34,6 +34,7 @@ import TextareaPlain from './textareas/Textarea.plain';
  * Spinners
  */
 import SpinnerSmall from './spinners/Spinner.small';
+import SpinnerLarge from './spinners/Spinner.large';
 
 /**
  * Flash Messages
@@ -73,6 +74,7 @@ export {
   InputPlain,
   TextareaPlain,
   SpinnerSmall,
+  SpinnerLarge,
   SuccessMessage,
   ErrorMessage,
   PaperSelectInput,
