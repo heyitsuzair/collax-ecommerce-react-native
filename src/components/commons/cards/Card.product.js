@@ -12,6 +12,8 @@ const CardProduct = ({product_image, slug, product_title, price}) => {
    * @function onCardPress
    *
    * When Someone Touches Card Navigate To Product Screen
+   *
+   * Navigate To Product Screen With Slug
    */
   const onCardPress = () => {
     navigation.navigate(Routes.productScreen, {
