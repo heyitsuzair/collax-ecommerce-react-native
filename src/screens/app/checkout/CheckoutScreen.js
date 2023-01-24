@@ -115,7 +115,9 @@ const CheckoutScreen = () => {
 
   return (
     <>
-      <ScrollView style={tw`bg-white h-full`}>
+      <ScrollView
+        style={tw`bg-white h-full`}
+        showsVerticalScrollIndicator={false}>
         <StepperUI {...StepperUIProps} />
       </ScrollView>
       {!isKeyboardVisible && (

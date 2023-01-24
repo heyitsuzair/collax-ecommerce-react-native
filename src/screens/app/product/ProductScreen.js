@@ -6,8 +6,11 @@ import Details from './Details';
 import Variants from './Variants';
 import {getProduct} from '../../../functions/products';
 import {SpinnerLarge} from '../../../components/commons';
+import {useDispatch, useSelector} from 'react-redux';
+import {Routes} from '../../../config';
+import {addToCart, buyNow, clearCart} from '../../../redux/slices/cart';
 
-const ProductScreen = ({route}) => {
+const ProductScreen = ({route, navigation}) => {
   const [product, setProduct] = useState([]);
 
   const [isLoading, setIsLoading] = useState(true);
@@ -25,18 +28,18 @@ const ProductScreen = ({route}) => {
   /**
    * State For Selected Color
    */
-  const [selectedColor, setSelectedColor] = useState(0);
+  const [selectedColor, setSelectedColor] = useState(null);
   /**
    * State For Selected Model
    */
-  const [selectedSize, setSelectedSize] = useState(0);
+  const [selectedSize, setSelectedSize] = useState(null);
 
   /**
    * Variant Props
    */
   const variantProps = {
-    colors: product.colors,
-    sizes: product.sizes,
+    colors: product.attributes ? product.attributes.colors : [],
+    sizes: product.attributes ? product.attributes.sizes : [],
     selectedColor,
     selectedSize,
     setSelectedColor,
@@ -51,14 +54,123 @@ const ProductScreen = ({route}) => {
   const fetchProduct = async () => {
     setIsLoading(true);
     const product = await getProduct(slug);
-    setProduct(product.data[0].attributes);
+    setProduct(product.data[0]);
+    isAlreadyInCart(product.data[0]);
     setIsLoading(false);
+  };
+
+  /**
+   * State For Is In Cart
+   */
+  const [isInCart, setIsInCart] = useState(false);
+
+  /**
+   * Redux Helper Functions
+   */
+  const dispatch = useDispatch();
+  const cart = useSelector(store => store.cart);
+
+  /**
+   * @function onAddToCart Triggers When Someone Click On "Add To Cart"
+   */
+  const onAddToCart = () => {
+    const data = {
+      product_id: product.id,
+      product_info: {
+        product_image: product.attributes.product_image.data.attributes.url,
+        product_title: product.attributes.product_title,
+        slug: product.attributes.slug,
+        price: product.attributes.price,
+        product_description: product.attributes.product_description,
+        available_qty: product.attributes.available_qty,
+      },
+      req_qty: 1,
+      size: product.attributes.sizes[selectedSize],
+      color: product.attributes.colors[selectedColor],
+    };
+    /**
+     * Trigger "addToCart" function of cart slice
+     */
+    dispatch(addToCart(data));
+    setIsInCart(true);
+  };
+
+  /**
+   * @function onBuyNow Triggers When Someone Click On "Buy Now"
+   */
+  const onBuyNow = () => {
+    const data = {
+      product_id: product.id,
+      product_info: {
+        product_image: product.attributes.product_image.data.attributes.url,
+        product_title: product.attributes.product_title,
+        slug: product.attributes.slug,
+        price: product.attributes.price,
+        product_description: product.attributes.product_description,
+        available_qty: product.attributes.available_qty,
+      },
+      req_qty: 1,
+      size: product.attributes.sizes[selectedSize],
+      color: product.attributes.colors[selectedColor],
+    };
+    /**
+     * Trigger "clearCart" function of cart slice
+     */
+    dispatch(clearCart());
+    /**
+     * Trigger "buyNow" function of cart slice
+     */
+    dispatch(buyNow(data));
+
+    navigation.navigate(Routes.checkoutScreen);
+  };
+
+  /**
+   * @function isAlreadyInCart Check if the product is already in cart
+   */
+  const isAlreadyInCart = product => {
+    /**
+     * Find By ID
+     */
+    const isInCart = cart.cartItems.find(
+      item => item.product_id === product.id,
+    );
+    if (isInCart) {
+      setIsInCart(true);
+      /**
+       * Find The Selected Color And Make Its Badge Active
+       */
+      const selectedColor = product.attributes.colors.findIndex(
+        color => color === isInCart.color,
+      );
+      setSelectedColor(selectedColor);
+      /**
+       * Find The Selected Size And Make Its Badge Active
+       */
+      const selectedSize = product.attributes.sizes.findIndex(
+        size => size === isInCart.size,
+      );
+      setSelectedSize(selectedSize);
+    } else {
+      setSelectedColor(0);
+      setSelectedSize(0);
+      setIsInCart(false);
+    }
   };
 
   useEffect(() => {
     fetchProduct();
     //eslint-disable-next-line
   }, []);
+
+  /**
+   * Bottom Bar Props
+   */
+  const BottomBarProps = {
+    onAddToCart,
+    isInCart,
+    onBuyNow,
+  };
 
   return (
     <View style={tw`flex-1 bg-white justify-center`}>
@@ -68,16 +180,18 @@ const ProductScreen = ({route}) => {
         <>
           <ScrollView style={tw`bg-white`}>
             <Image
-              source={{uri: product.product_image.data.attributes.url}}
+              source={{
+                uri: product.attributes.product_image.data.attributes.url,
+              }}
               resizeMode="cover"
               style={tw`w-full h-${HEIGHT}px`}
             />
             <View style={tw`m-4 gap-6`}>
-              <Details {...product} />
+              <Details {...product.attributes} />
               <Variants {...variantProps} />
             </View>
           </ScrollView>
-          <BottomBar />
+          <BottomBar {...product.attributes} {...BottomBarProps} />
         </>
       )}
     </View>

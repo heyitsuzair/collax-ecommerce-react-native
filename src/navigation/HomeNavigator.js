@@ -2,7 +2,7 @@ import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {HomeScreen} from '../screens/app/home';
 import {Routes} from '../config';
-import {ProductScreen} from '../screens/app/product';
+import ProductNavigator from './ProductNavigator';
 
 const Stack = createNativeStackNavigator();
 
@@ -12,7 +12,7 @@ const HomeNavigator = () => {
       initialRouteName="Home"
       screenOptions={{headerShown: false}}>
       <Stack.Screen name="Home" component={HomeScreen} />
-      <Stack.Screen name={Routes.productScreen} component={ProductScreen} />
+      <Stack.Screen name={Routes.productScreen} component={ProductNavigator} />
     </Stack.Navigator>
   );
 };

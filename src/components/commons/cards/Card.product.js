@@ -15,7 +15,8 @@ const CardProduct = ({product_image, slug, product_title, price}) => {
    */
   const onCardPress = () => {
     navigation.navigate(Routes.productScreen, {
-      slug,
+      screen: 'Product',
+      params: {slug},
     });
   };
 

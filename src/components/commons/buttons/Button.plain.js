@@ -16,6 +16,7 @@ const ButtonPlain = ({
   onPress,
   isLoading,
   isWidthFull,
+  isDisabled,
 }) => {
   let size = 20;
   let textColor = 'text-white';
@@ -59,8 +60,11 @@ const ButtonPlain = ({
   return (
     <TouchableOpacity
       activeOpacity={0.5}
+      disabled={isDisabled}
       onPressIn={onPress ? () => onPress() : null}
-      style={tw`flex-row justify-center items-center gap-2 rounded-lg px-4 ${btnSize} ${btnColor}`}>
+      style={tw`flex-row justify-center ${
+        isDisabled ? 'opacity-50' : 'opacity-100'
+      } items-center gap-2 rounded-lg px-4 ${btnSize} ${btnColor}`}>
       {isLoading ? (
         <SpinnerSmall color={colorLoading} />
       ) : (

@@ -4,7 +4,6 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import tw from 'twrnc';
 import HomeNavigator from './HomeNavigator';
 import {Routes} from '../config';
-import {CartScreen} from '../screens/app/cart';
 import {AboutScreen} from '../screens/app/about';
 import {ContactScreen} from '../screens/app/contact';
 import CartNavigator from './CartNavigator';
