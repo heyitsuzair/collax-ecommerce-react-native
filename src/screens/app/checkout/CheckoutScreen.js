@@ -6,14 +6,21 @@ import {useFormik} from 'formik';
 import {CheckoutFormSchema} from '../../../yupSchemas';
 import PlaceOrder from './PlaceOrder';
 import NetInfo from '@react-native-community/netinfo';
+import {useSelector} from 'react-redux';
+import {Routes} from '../../../config';
 
-const CheckoutScreen = () => {
+const CheckoutScreen = ({navigation}) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
   /**
    * State To Check Internet Connection
    */
   const [isConnected, setIsConnected] = useState(false);
+
+  /**
+   * Redux Helper Functions
+   */
+  const cart = useSelector(store => store.cart);
 
   /**
    * @var initialValues Form Initial Values
@@ -134,9 +141,19 @@ const CheckoutScreen = () => {
   };
 
   useEffect(() => {
+    /**
+     * Check If Cart Is Empty Navigate It To Home
+     */
+    if (cart.cartItems.length < 1) {
+      navigation.navigate(Routes.homeScreen, {
+        screen: 'Home',
+      });
+    }
     getNetInfo();
     checkIfKeyboardVisible();
-  }, []);
+
+    //eslint-disable-next-line
+  }, [cart]);
 
   /**
    * Props For PlaceOrder Component

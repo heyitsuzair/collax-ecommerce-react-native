@@ -57,7 +57,7 @@ const ProductScreen = ({route, navigation}) => {
     setIsLoading(true);
     const product = await getProduct(slug);
     setProduct(product.data[0]);
-    isAlreadyInCart(product.data[0]);
+    isAlreadyInCart();
     setIsLoading(false);
   };
 
@@ -130,7 +130,7 @@ const ProductScreen = ({route, navigation}) => {
   /**
    * @function isAlreadyInCart Check if the product is already in cart
    */
-  const isAlreadyInCart = product => {
+  const isAlreadyInCart = () => {
     /**
      * Find By ID
      */
@@ -195,6 +195,14 @@ const ProductScreen = ({route, navigation}) => {
     getNetInfo();
     //eslint-disable-next-line
   }, []);
+
+  useEffect(() => {
+    /**
+     * Check if product is already in cart if user is connected to internet
+     */
+    isConnected && isAlreadyInCart();
+    //eslint-disable-next-line
+  }, [cart]);
 
   if (isConnected) {
     return (
