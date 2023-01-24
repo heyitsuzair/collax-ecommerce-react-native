@@ -6,8 +6,11 @@ import {useFormik} from 'formik';
 import {CheckoutFormSchema} from '../../../yupSchemas';
 import PlaceOrder from './PlaceOrder';
 import NetInfo from '@react-native-community/netinfo';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {Routes} from '../../../config';
+import {placeOrder} from '../../../functions/orders';
+import {ErrorMessage, SuccessMessage} from '../../../components/commons';
+import {clearCart} from '../../../redux/slices/cart';
 
 const CheckoutScreen = ({navigation}) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -21,6 +24,7 @@ const CheckoutScreen = ({navigation}) => {
    * Redux Helper Functions
    */
   const cart = useSelector(store => store.cart);
+  const dispatch = useDispatch();
 
   /**
    * @var initialValues Form Initial Values
@@ -54,27 +58,26 @@ const CheckoutScreen = ({navigation}) => {
      * Start Loading
      */
     setIsLoading(true);
-    // const data = {
-    //   ...values,
-    //   total: cart.total + 40,
-    //   order_items: cart.cartItems,
-    // };
+    const data = {
+      ...values,
+      total: cart.total + 40,
+      order_items: cart.cartItems,
+    };
 
-    // const isOrderAdded = await placeOrder(data);
+    const isOrderAdded = await placeOrder(data);
 
-    // if (isOrderAdded.error) {
-    //   ErrorMessage(isOrderAdded.msg);
-    // } else {
-    //   /**
-    //    * Clear Cart
-    //    */
-    //   dispatch(clearCart());
-    //   SuccessMessage(isOrderAdded.msg);
-
-    // }
-    actions.resetForm();
-
-    setIsLoading(false);
+    if (isOrderAdded.error) {
+      ErrorMessage(isOrderAdded.msg);
+      setIsLoading(false);
+    } else {
+      /**
+       * Clear Cart
+       */
+      dispatch(clearCart());
+      SuccessMessage(isOrderAdded.msg);
+      actions.resetForm();
+      setIsLoading(false);
+    }
   };
 
   /**
@@ -140,6 +143,20 @@ const CheckoutScreen = ({navigation}) => {
     });
   };
 
+  /**
+   * Props For PlaceOrder Component
+   */
+  const placeOrderProps = {
+    isLoading,
+    onPress: handleSubmit,
+    isConnected,
+  };
+
+  useEffect(() => {
+    getNetInfo();
+    checkIfKeyboardVisible();
+  }, []);
+
   useEffect(() => {
     /**
      * Check If Cart Is Empty Navigate It To Home
@@ -149,20 +166,8 @@ const CheckoutScreen = ({navigation}) => {
         screen: 'Home',
       });
     }
-    getNetInfo();
-    checkIfKeyboardVisible();
-
     //eslint-disable-next-line
   }, [cart]);
-
-  /**
-   * Props For PlaceOrder Component
-   */
-  const placeOrderProps = {
-    isLoading,
-    onPress: handleSubmit,
-    isConnected,
-  };
 
   return (
     <>
