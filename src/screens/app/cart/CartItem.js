@@ -5,7 +5,11 @@ import {IconPlain, Text} from '../../../components/commons';
 import {useNavigation} from '@react-navigation/native';
 import {Routes} from '../../../config';
 import {useDispatch} from 'react-redux';
-import {decreaseQuantity, increaseQuantity} from '../../../redux/slices/cart';
+import {
+  decreaseQuantity,
+  increaseQuantity,
+  removeFromCart,
+} from '../../../redux/slices/cart';
 
 const CartItem = ({product_info, req_qty, product_id}) => {
   /**
@@ -58,7 +62,7 @@ const CartItem = ({product_info, req_qty, product_id}) => {
             classes="text-black mt-2"
           />
         </View>
-        <View style={tw`flex-row gap-4 items-center`}>
+        <View style={tw`flex-row gap-2 items-center`}>
           <Pressable
             onPress={() => dispatch(decreaseQuantity(product_id))}
             style={tw`bg-yellow-300 px-4 py-2 rounded-md`}>
@@ -69,6 +73,11 @@ const CartItem = ({product_info, req_qty, product_id}) => {
             onPress={() => dispatch(increaseQuantity(product_id))}
             style={tw`bg-yellow-300 px-4 py-2 rounded-md`}>
             <IconPlain icon="plus" />
+          </Pressable>
+          <Pressable
+            onPress={() => dispatch(removeFromCart(product_id))}
+            style={tw`bg-red-300 px-4 py-2 rounded-md`}>
+            <IconPlain icon="trash" />
           </Pressable>
         </View>
       </View>
