@@ -1,21 +1,21 @@
 import {ScrollView, Image, Dimensions, View} from 'react-native';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import tw from 'twrnc';
-import {Text} from '../../../components/commons';
 import BottomBar from './BottomBar';
 import Details from './Details';
 import Variants from './Variants';
+import {getProduct} from '../../../functions/products';
+import {SpinnerLarge} from '../../../components/commons';
 
 const ProductScreen = ({route}) => {
+  const [product, setProduct] = useState([]);
+
+  const [isLoading, setIsLoading] = useState(true);
+
   /**
    * Incoming Params
    */
   const {slug} = route.params;
-
-  /**
-   * Product Picture
-   */
-  const PRODUCT_IMAGE = require('../../../img/contact-1.jpg');
 
   /**
    * Image Height
@@ -31,36 +31,56 @@ const ProductScreen = ({route}) => {
    */
   const [selectedSize, setSelectedSize] = useState(0);
 
-  const colors = ['RED', 'GREEN', 'BLUE'];
-  const sizes = ['S', 'L', 'XL'];
-
   /**
    * Variant Props
    */
   const variantProps = {
-    colors,
-    sizes,
+    colors: product.colors,
+    sizes: product.sizes,
     selectedColor,
     selectedSize,
     setSelectedColor,
     setSelectedSize,
   };
 
+  /**
+   * @function fetchProduct
+   *
+   * Fetch Product information from API
+   */
+  const fetchProduct = async () => {
+    setIsLoading(true);
+    const product = await getProduct(slug);
+    setProduct(product.data[0].attributes);
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    fetchProduct();
+    //eslint-disable-next-line
+  }, []);
+
   return (
-    <>
-      <ScrollView style={tw`bg-white`}>
-        <Image
-          source={PRODUCT_IMAGE}
-          resizeMode="cover"
-          style={tw`w-full h-${HEIGHT}px`}
-        />
-        <View style={tw`m-4 gap-6`}>
-          <Details />
-          <Variants {...variantProps} />
-        </View>
-      </ScrollView>
-      <BottomBar />
-    </>
+    <View style={tw`flex-1 bg-white justify-center`}>
+      {isLoading ? (
+        <SpinnerLarge />
+      ) : (
+        <>
+          <ScrollView style={tw`bg-white`}>
+            <Image
+              source={{uri: product.product_image.data.attributes.url}}
+              resizeMode="cover"
+              style={tw`w-full h-${HEIGHT}px`}
+            />
+            <View style={tw`m-4 gap-6`}>
+              <Details {...product} />
+              <Variants {...variantProps} />
+            </View>
+          </ScrollView>
+          <BottomBar />
+        </>
+      )}
+    </View>
   );
 };
 
